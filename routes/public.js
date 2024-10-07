@@ -63,14 +63,14 @@ router.post('/cadastrar-visitor', async (req, res)=>{
         const salt = await bcrypt.genSalt(10);
         const hashPassword = await bcrypt.hash(visitor.password, salt);
 
-        const newVisitor = await prisma.visitor.create({
+        const visitorDB = await prisma.visitor.create({
             data:{
                 name: visitor.name,
                 email: visitor.email,
                 password: hashPassword,
             },
         });
-        res.status(200).json({newVisitor});
+        res.status(201).json({visitorDB});
     } catch (error) {
         res.status(500).json("server error, try again.");
     }
@@ -97,6 +97,6 @@ router.post('/login-visitor', async (req, res)=>{
         console.log(error)
         res.status(500).json("server error, try again.");
     }
-})
+});
 
 export default router;

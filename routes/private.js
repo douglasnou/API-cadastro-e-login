@@ -45,7 +45,7 @@ router.post('/criar-produto', async (req, res)=>{
     };
 });
 
-router.post('/atualizar-produto', async (req, res)=>{
+router.put('/atualizar-produto', async (req, res)=>{
     try {
         const product = req.body
 
@@ -59,7 +59,7 @@ router.post('/atualizar-produto', async (req, res)=>{
     };
 });
 
-router.post('/deletar-produto', async (req, res)=>{
+router.delete('/deletar-produto', async (req, res)=>{
     try {
       const product = req.body;
       const productDeleted = await prisma.product.delete({where: {id: product.id}});

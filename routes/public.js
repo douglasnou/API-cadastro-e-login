@@ -80,9 +80,9 @@ router.post('/login-visitor', async (req, res)=>{
     try {
         const visitorInfo = req.body;
 
-        const visitor = await prisma.visitorInfo.findUnique({
+        const visitor = await prisma.visitor.findUnique({
             where: {email: visitorInfo.email},
-        });
+        })
         if(!visitor){
             return res.status(404).json({message: 'user not found.'});
         };
@@ -94,6 +94,7 @@ router.post('/login-visitor', async (req, res)=>{
         const token = await jwt.sign({id: visitor.id}, JWT_SECRET, {expiresIn: "1h"});
         res.status(200).json(token);
     } catch (error) {
+        console.log(error)
         res.status(500).json("server error, try again.");
     }
 })
